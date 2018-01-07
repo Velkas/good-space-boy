@@ -3,11 +3,13 @@ class Player {
     constructor(x, y, type) {
         this.pos        = createVector(x, y);
         this.vel        = createVector(0, 0);
+        this.acc        = createVector();
         this.size       = 10;
         this.type       = type || 'base';
 
         this.ship       = new Ship(this.size, this.type);
         this.speed      = this.ship.speed;
+        this.maxSpeed   = this.ship.maxSpeed;
         this.turnSpeed  = this.ship.turnSpeed;
         this.health     = this.ship.health;
         this.fireRate   = this.ship.fireRate;
@@ -44,6 +46,8 @@ class Player {
     }
 
     update() {
+        this.offscreen();
+
         if (this.health <= 0 && !this.god) {
             this.health = 0;
             this.isAlive = false;
@@ -53,21 +57,19 @@ class Player {
             this.health = 100;
         }
 
-        this.vel.limit(this.speed); 
-        this.pos.add(this.vel);
-        this.vel.mult(0.99);
-
-        this.offscreen();
         this.turn();
-        if (this.isMoving) {
-            this.move();
-        }
+
+        this.vel.mult(0.99);
+        this.vel.add(this.acc);
+        this.vel.limit(this.maxSpeed);
+        this.pos.add(this.vel);
+        this.acc.mult(0);
     }
 
-    move() {
-        let f = p5.Vector.fromAngle(this.heading);
-        f.mult(0.9);
-        this.vel.add(f);
+    applyForce(force) {
+        let f = p5.Vector.fromAngle(force);
+        f.mult(0.1);
+        this.acc.add(f);
     }
 
     offscreen() {
@@ -96,7 +98,8 @@ class Player {
 class Ship {
 
     constructor(size, type) {
-        this.speed      = 2;
+        this.speed      = 0.01;
+        this.maxSpeed   = 5;
         this.turnSpeed  = 0.05;
         this.health     = 100;
         this.fireRate   = 10;

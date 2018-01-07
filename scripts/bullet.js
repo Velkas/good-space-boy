@@ -11,15 +11,15 @@ class Bullet {
     render() {
         this.update();
         
-        push();
+        //push();
         stroke(255, 255, 0, 255);
         strokeWeight(this.size * 5);
         ellipse(this.pos.x, this.pos.y, this.size);
-        pop();
+        //pop();
     }
 
     update() {
-        offscreen();
+
     }
 
     offscreen() {

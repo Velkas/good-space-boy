@@ -13,6 +13,8 @@ let hq = true;
 let dbgKill;
 let dbgGod;
 let dbgShip;
+let dbgHUp;
+let dbgHDown;
 
 function setup() {
 	removeElements();
@@ -28,9 +30,11 @@ function setup() {
 	gm = new GameManager();
 	fpsBtn 		= createCheckbox('High Quality', true);
 	resetBtn 	= createButton('Reset');
-	dbgKill 	= createButton('kill')
-	dbgGod 		= createButton('God');
 	dbgShip		= createSelect();
+	dbgHDown	= createButton('-10');
+	dbgKill 	= createButton('kill');
+	dbgGod 		= createButton('God');		
+	dbgHUp		= createButton('+10');
 
 	dbgShip.option('base');
 	dbgShip.option('cruiser');
@@ -40,35 +44,27 @@ function setup() {
 	dbgGod.mousePressed(toggleGod);
 	fpsBtn.changed(toggleQuality);
 	dbgKill.mousePressed(function() { player.health = 0; });
+	dbgHUp.mousePressed(function() { player.health += 10 });
+	dbgHDown.mousePressed(function() { player.health -= 10 });
 
 	bullets = [];
 	enemies = [];
 	player = new Player(width/2, height/2);
 
-	for (let y = 0; y < height/10; y+=10) {
-		for (let x = 0; x < width/10; x+=10) {
-			let bullet = new Bullet(x, y);
-			bullets.push(bullet);
-		}
-	}
-
-	for (let i = 0; i < 10; i++) {
-		enemies.push(new Enemy(i * 20 + 10, i * 20 + 10));
-	}
-
 	gm.addDoms();
 }
 
 function input() {
-	if (keyIsDown(' ')) {
-		console.log('shoot');
+	if (keyIsDown(32)) {
+		if (frameCount % player.fireRate == 0) {
+			let bullet = new Bullet(player.pos.x, player.pos.y);
+			bullets.push(bullet);
+		}
 	}
 
 	if (keyIsDown(UP_ARROW)) {
-		player.isMoving = true;
-	} else {
-		player.isMoving = false;
-	}
+		player.applyForce(player.heading);
+	} 
 
 	if (keyIsDown(LEFT_ARROW)) {
 		player.setRotation(-player.turnSpeed);
