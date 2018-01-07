@@ -61,9 +61,7 @@ function setup() {
 
 function input() {
 	if (keyIsDown(' ')) {
-		if (frameRate % setFps === 0) {
-			console.log('shoot');
-		}
+		console.log('shoot');
 	}
 
 	if (keyIsDown(UP_ARROW)) {
