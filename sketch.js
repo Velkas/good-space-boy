@@ -84,7 +84,7 @@ function input() {
 		keyIsDown(RIGHT_ARROW) && keyIsDown(LEFT_ARROW)) {
 		player.setRotation(0);
 	}
-}
+} 
 
 function draw() {
 	background(30, 255);
