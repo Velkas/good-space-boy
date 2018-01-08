@@ -17,6 +17,7 @@ class Player {
         this.heading    = 0;
         this.rotation   = 0;
 
+        this.bombFired  = false;
         this.isAlive    = true;
         this.isMoving   = false;
         this.god        = false;
@@ -57,19 +58,31 @@ class Player {
             this.health = 100;
         }
 
-        this.turn();
+        if (this.bombFired) {
+            this.fireBomb(this.pos);
+        }
 
         this.vel.mult(0.99);
         this.vel.add(this.acc);
         this.vel.limit(this.maxSpeed);
         this.pos.add(this.vel);
         this.acc.mult(0);
+
+        this.turn();
     }
 
     applyForce(force) {
         let f = p5.Vector.fromAngle(force);
         f.mult(0.1);
         this.acc.add(f);
+    }
+
+    fireBomb(pos) {
+        let bomb = new Bomb(pos);
+        bomb.r += 0.5;
+        console.log(bomb.r);
+        this.bombFired = bomb.r > width * height ? false : true;
+        console.log(this.bombFired);
     }
 
     offscreen() {
@@ -95,42 +108,11 @@ class Player {
     }
 }
 
-class Ship {
+class Bomb{
 
-    constructor(size, type) {
-        this.speed      = 0.01;
-        this.maxSpeed   = 5;
-        this.turnSpeed  = 0.05;
-        this.health     = 100;
-        this.fireRate   = 10;
-        this.hull       = this.getHull(size, type);
-
-        return this;
-    }
-
-    getHull(size, type) {
-        switch (type) {
-            case 'base':
-                return [
-                    createVector(0, -size),
-                    createVector(size/2, size),
-                    createVector(0, size - size/3),
-                    createVector(-size/2, size)
-                ];
-            case 'cruiser':
-                return [
-                    createVector(-size, -size),
-                    createVector(size, -size),
-                    createVector(size, size),
-                    createVector(-size, size)
-                ];
-            default:
-                return [
-                    createVector(0, -size),
-                    createVector(size/2, size),
-                    createVector(0, size - size/3),
-                    createVector(-size/2, size)
-                ];
-        }
+    constructor(pos) {
+        this.pos = createVector(pos.x, pos.y);
+        this.power = 100;
+        this.r = 0;
     }
 }

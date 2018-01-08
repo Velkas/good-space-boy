@@ -38,7 +38,8 @@ function setup() {
 
 	dbgShip.option('base');
 	dbgShip.option('cruiser');
-	dbgShip.changed(function() { player = new Player(player.pos.x, player.pos.y, dbgShip.value()) });
+	dbgShip.option('default');
+	dbgShip.changed(function() { player = new Player(player.pos.x, player.pos.y, dbgShip.value()); });
 
 	resetBtn.mousePressed(setup);
 	dbgGod.mousePressed(toggleGod);
@@ -57,7 +58,7 @@ function setup() {
 function input() {
 	if (keyIsDown(32)) {
 		if (frameCount % player.fireRate == 0) {
-			let bullet = new Bullet(player.pos.x, player.pos.y);
+			let bullet = new Bullet(player.pos, player.heading + player.rotation);
 			bullets.push(bullet);
 		}
 	}
@@ -72,6 +73,10 @@ function input() {
 	
 	if (keyIsDown(RIGHT_ARROW)) {
 		player.setRotation(player.turnSpeed);
+	}
+	
+	if (keyIsDown(DOWN_ARROW)) {
+		player.applyForce(-player.vel.mult(0.98));
 	} 
 	
 	if (!keyIsDown(RIGHT_ARROW) && !keyIsDown(LEFT_ARROW) ||
@@ -81,22 +86,22 @@ function input() {
 } 
 
 function draw() {
-	background(30, 255);
+	background(30, 100);
 
 	input();
 
 	if (!gm.paused) {
-		for (let b in bullets) {
-			if (!bullets[b].offscreen()) {
-				bullets[b].render();
+		for (let i = bullets.length-1; i > 0; i--) {
+			if (!bullets[i].offscreen()) {
+				bullets[i].render();
 			} else {
-				bullets.splice(b, 1);
+			 	bullets.splice(i, 1);
 			}
 		}
 	}
 
-	for (let e in enemies) {
-		enemies[e].render();
+	for (let e of enemies) {
+		e.render();
 	}
 
 	player.render();
@@ -140,6 +145,11 @@ function keyTyped() {
 			break;
 		case 'r':
 			setup();
+			break;
+		case 'b':
+			if (!player.bombFired) {
+				player.bombFired = true;
+			}
 			break;
 		default:
 			break;
