@@ -136,12 +136,14 @@ class GameManager {
     addDoms() {
         createP('');
         createDiv('Controls:');
-        createDiv('Cursor = move / aim ship');
-        createDiv('LMB = fire');
-        createDiv('RMB = use bomb');
-        createDiv('P = pause game');
-        createDiv('R = reset game');
-        createDiv('U = toggle UI');
+        createDiv('Up         = Accelerate');
+        createDiv('Down       = Decelerate');
+        createDiv('Left/Right = Turn');
+        createDiv('LMB        = fire');
+        createDiv('RMB        = use bomb');
+        createDiv('P          = pause game');
+        createDiv('R          = reset game');
+        createDiv('U          = toggle UI');
         createP('Copyright © 2018 Scott McCaffree');
     }
 }
