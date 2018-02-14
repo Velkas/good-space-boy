@@ -28,22 +28,22 @@ class Player {
             this.update();
         }
         
-        push();
+        playerCnv.push();
 
-        fill(map(this.health, 100, 0, 0, 255), map(this.health, 0, 100, 0, 150), 0);
-        stroke(map(this.health, 100, 0, 0, 255), map(this.health, 0, 100, 0, 255), 0);
-        strokeWeight(2);
+        playerCnv.fill(map(this.health, 100, 0, 0, 255), map(this.health, 0, 100, 0, 150), 0);
+        playerCnv.stroke(map(this.health, 100, 0, 0, 255), map(this.health, 0, 100, 0, 255), 0);
+        playerCnv.strokeWeight(2);
 
-        translate(this.pos.x, this.pos.y);
-        rotate(this.heading + PI / 2);
+        playerCnv.translate(this.pos.x, this.pos.y);
+        playerCnv.rotate(this.heading + PI / 2);
 
-        beginShape();
+        playerCnv.beginShape();
         for (let v of this.ship.hull) {
-            vertex(v.x, v.y);
+            playerCnv.vertex(v.x, v.y);
         }
-        endShape(CLOSE);
+        playerCnv.endShape(CLOSE);
 
-        pop();
+        playerCnv.pop();
     }
 
     update() {
@@ -80,9 +80,9 @@ class Player {
     fireBomb(pos) {
         let bomb = new Bomb(pos);
         bomb.r += 0.5;
-        console.log(bomb.r);
+        //console.log(bomb.r);
         this.bombFired = bomb.r > width * height ? false : true;
-        console.log(this.bombFired);
+        //console.log(this.bombFired);
     }
 
     offscreen() {

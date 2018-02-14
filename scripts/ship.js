@@ -22,17 +22,19 @@ class Ship {
                 ];
             case 'cruiser':
                 return [
+                    createVector(-(size-(size/3)), -size),
+                    createVector(0, 0),
+                    createVector(size-(size/3), -size),
+                    createVector(size-(size/3), size),
+                    createVector(0, size/2),
+                    createVector(-(size-(size/3)), size)
+                ];
+            default:
+                return [
                     createVector(-size, -size),
                     createVector(size, -size),
                     createVector(size, size),
                     createVector(-size, size)
-                ];
-            default:
-                return [
-                    createVector(0, -size),
-                    createVector(size/2, size),
-                    createVector(0, size - size/3),
-                    createVector(-size/2, size)
                 ];
         }
     }

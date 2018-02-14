@@ -49,88 +49,88 @@ class GameManager {
     }
 
     renderDeath() {
-        push();
-        fill(0, 0, 0, 200);
-        rect(0, 0, width, height);
+        uiCnv.push();
+        uiCnv.fill(0, 0, 0, 200);
+        uiCnv.rect(0, 0, width, height);
 
-        fill(200, 0, 0, 255);
-        stroke(0);
-        strokeWeight(4);
-        textSize(36);
-        textAlign(CENTER);
-        text('DEAD', width/2, height/2);
-        pop();
+        uiCnv.fill(200, 0, 0, 255);
+        uiCnv.stroke(0);
+        uiCnv.strokeWeight(4);
+        uiCnv.textSize(36);
+        uiCnv.textAlign(CENTER);
+        uiCnv.text('DEAD', width/2, height/2);
+        uiCnv.pop();
     }
 
     renderPause() {
-        push();
-        fill(0, 0, 0, 150);
-        rect(0, 0, width, height);
+        uiCnv.push();
+        uiCnv.fill(0, 0, 0, 150);
+        uiCnv.rect(0, 0, width, height);
 
-        fill(255);
-        stroke(0);
-        strokeWeight(2);
-        textSize(36);
-        textAlign(CENTER);
-        text('PAUSED', width/2, height/2);
-        pop();
+        uiCnv.fill(255);
+        uiCnv.stroke(0);
+        uiCnv.strokeWeight(2);
+        uiCnv.textSize(36);
+        uiCnv.textAlign(CENTER);
+        uiCnv.text('PAUSED', width/2, height/2);
+        uiCnv.pop();
     }
 
     renderTime() {
-        push();
-        fill(0, 0, 0, 150);
-        noStroke();
-        rect(width/2 - 36, 0, 72, 30);
+        uiCnv.push();
+        uiCnv.fill(0, 0, 0, 150);
+        uiCnv.noStroke();
+        uiCnv.rect(width/2 - 36, 0, 72, 30);
 
-        fill(255);
-        stroke(0);
-        strokeWeight(2);
-        textAlign(CENTER);
-        textSize(24);
-        text(this.time, width/2, 24);
-        pop();
+        uiCnv.fill(255);
+        uiCnv.stroke(0);
+        uiCnv.strokeWeight(2);
+        uiCnv.textAlign(CENTER);
+        uiCnv.textSize(24);
+        uiCnv.text(this.time, width/2, 24);
+        uiCnv.pop();
     }
 
     renderFps() {
-        push();
-        fill(0, 0, 0, 150);
-        noStroke();
-        rect(8, height - 23, 50, 13);
+        uiCnv.push();
+        uiCnv.fill(0, 0, 0, 150);
+        uiCnv.noStroke();
+        uiCnv.rect(8, height - 23, 50, 13);
 
-        fill(255);
-        stroke(0);
-        strokeWeight(2);
-        textAlign(LEFT);
-        textSize(12);
+        uiCnv.fill(255);
+        uiCnv.stroke(0);
+        uiCnv.strokeWeight(2);
+        uiCnv.textAlign(LEFT);
+        uiCnv.textSize(12);
         let fr = (frameCount % setFps === 0) ? frameRate().toFixed(0) : setFps;
-        text('FPS: ' + fr, 10, height - 12);
-        pop();
+        uiCnv.text('FPS: ' + fr, 10, height - 12);
+        uiCnv.pop();
     }
 
     renderFinalScore() {
-        push();
-        fill(255);
-        stroke(0);
-        strokeWeight(4);
-        textSize(48);
-        textAlign(CENTER);
-        text(this.score, width/2, height/2 - 60);
-        pop();
+        uiCnv.push();
+        uiCnv.fill(255);
+        uiCnv.stroke(0);
+        uiCnv.strokeWeight(4);
+        uiCnv.textSize(48);
+        uiCnv.textAlign(CENTER);
+        uiCnv.text(this.score, width/2, height/2 - 60);
+        uiCnv.pop();
     }
 
     renderScore() {
-        push();
-        fill(0, 0, 0, 150);
-        noStroke();
-        rect(8, height - 35, 95, 13);
+        uiCnv.push();
+        uiCnv.fill(0, 0, 0, 150);
+        uiCnv.noStroke();
+        uiCnv.rect(8, height - 35, 95, 13);
 
-        fill(255);
-        stroke(0);
-        strokeWeight(2);
-        textAlign(LEFT);
-        textSize(12);
-        text('SCORE: ' + this.score, 10, height - 24);
-        pop();
+        uiCnv.fill(255);
+        uiCnv.stroke(0);
+        uiCnv.strokeWeight(2);
+        uiCnv.textAlign(LEFT);
+        uiCnv.textSize(12);
+        uiCnv.text('SCORE: ' + this.score, 10, height - 24);
+        uiCnv.pop();
     }
 
     addDoms() {
